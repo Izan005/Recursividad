@@ -1,7 +1,6 @@
 package org.example;
 
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Recursividad {
@@ -78,7 +77,10 @@ public class Recursividad {
                 intEjercicio3(num);
                 break;
             case "1":
-//                stringEjercicio3();
+                System.out.println("Introduce una palabra:");
+                String palabra = entrada.next();
+                palabraact3 = palabra.toCharArray();
+                stringEjercicio3(palabraact3.length-1);
                 break;
             default:
                 System.out.println("Opción inválida.");
@@ -99,10 +101,82 @@ public class Recursividad {
 
     }
 
-    public static String stringEjercicio3(String cad) {
-        return cad;
+    static char palabraact3[];
+
+    public static void stringEjercicio3(int cont) {
+
+        if (cont == 0) {
+            System.out.println(palabraact3[cont]);
+        } else {
+            System.out.print(palabraact3[cont]);
+            stringEjercicio3(cont-1);
+        }
+
     }
+
+    public static boolean ejercicio4(int num) {
+
+
+
+        if (num > 9) {
+            if (num % 10 == 0 || num % 10 == 1) {
+                return ejercicio4(num/10);
+            } else {
+                return false;
+            }
+        }
+
+        if (num == 0 || num == 1) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    public static String ejercicio5(int num) {
+
+       if (num == 0 || num == 1) {
+           return Integer.toString(num);
+       } else {
+           return ejercicio5(num/2) + num%2;
+       }
+
+    }
+
+    static char palabraact6[];
+
+    public static boolean ejercicio6(int cont) {
+
+        if (cont<palabraact6.length-1) {
+            if (palabraact6[cont]<=palabraact6[cont+1]) {
+                return ejercicio6(++cont);
+            } else  {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    static int numact7 = 0;
     
+    public static int ejercicio7(int num) {
+
+
+        if (num != 0) {
+            if (num != 1) {
+                System.out.print(num + " + ");
+            } else {
+                System.out.print(num);
+            }
+
+            num = ejercicio7(num-1) + num;
+        }
+
+        return num;
+    }
+
     public static void principal() {
         String modo = entrada.next();
         int num = 0;
@@ -124,12 +198,34 @@ public class Recursividad {
                 System.out.println();
                 break;
             case "4":
+                num = pedirNumInt();
+                boolean validar = ejercicio4(num);
+                if (validar == true) {
+                    System.out.println("El número es binario");
+                } else {
+                    System.out.println("El número no es binario");
+                }
                 break;
             case "5":
+                num = pedirNumInt();
+                String cad_num = ejercicio5(num);
+                System.out.println(cad_num);
                 break;
             case "6":
+                System.out.println("Introduce una palabra:");
+                String palabra = entrada.next();
+                palabraact6 = palabra.toCharArray();
+                boolean valido = ejercicio6(palabraact6.length);
+
+                if (valido == true) {
+                    System.out.println("Está ordenada alfabéticamnte");
+                } else {
+                    System.out.println("No está ordenada alfabéticamente");
+                }
                 break;
             case "7":
+                num = pedirNumInt();
+                System.out.println(" = " + ejercicio7(num));
                 break;
             default:
                 System.out.println("Opción incorrecta.");
@@ -137,6 +233,5 @@ public class Recursividad {
         }
 
        menuSalir();
-       System.out.println("pe");
     }
 }
